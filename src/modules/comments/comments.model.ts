@@ -8,7 +8,7 @@ export class Comment {
     @Prop({ required: true })
     public postId!: number;
 
-    @Prop({ required: true })
+    @Prop({ required: false})
     public text?: string;
 
     @Prop({ required: true, default: 0 })  // рейтинг с дефолтом
