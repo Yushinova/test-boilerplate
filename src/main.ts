@@ -6,27 +6,30 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create(AppModule);
     
-    // ========== ГЛОБАЛЬНАЯ ВАЛИДАЦИЯ ==========
-    // Включаем валидацию для всех входящих запросов
+    //ВКЛЮЧАЕМ CORS
+    app.enableCors({
+        origin: ['http://localhost:3001', 'http://localhost:3000'],
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        credentials: true,
+    });
+    
     app.useGlobalPipes(new ValidationPipe({
-        whitelist: true,           // удаляет поля, которых нет в DTO
-        transform: true,           // автоматически преобразует типы
-        forbidNonWhitelisted: true, // ошибка при лишних полях
+        whitelist: true,
+        transform: true,
+        forbidNonWhitelisted: true,
     }));
 
-    // ========== НАСТРОЙКА SWAGGER ==========
     const config = new DocumentBuilder()
         .setTitle('Blog API')
         .setDescription('API для управления постами и комментариями')
         .setVersion('1.0')
-        .addTag('posts', 'Операции с постами')
-        .addTag('comments', 'Операции с комментариями')
+        .addTag('posts')
+        .addTag('comments')
         .build();
     
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, document);  // Swagger будет доступен по пути /api
+    SwaggerModule.setup('api', app, document);
 
-    // ========== ЗАПУСК СЕРВЕРА ==========
     const port = process.env.PORT || 3000;
     await app.listen(port);
     

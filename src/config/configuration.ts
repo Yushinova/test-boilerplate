@@ -14,7 +14,7 @@ export default () => ({
     port: parseInt(process.env.PORT ?? '3000', 10),
 });
 
-// Альтернативный вариант с безопасным доступом
+//вариант с безопасным доступом
 export const getConfig = (configService: ConfigService) => ({
     postgres: {
         host: configService.get<string>('POSTGRES_HOST')!,
