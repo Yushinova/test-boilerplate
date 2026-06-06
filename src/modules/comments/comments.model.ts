@@ -1,7 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-//export type CommentDocument = HydratedDocument<Comment>;
+export type CommentDocument = HydratedDocument<Comment>;
 
 @Schema({ timestamps: true })
 export class Comment {
@@ -9,7 +9,7 @@ export class Comment {
     public postId!: number;
 
     @Prop({ required: true })
-    public text!: string;
+    public text?: string;
 
     @Prop({ required: true, default: 0 })  // рейтинг с дефолтом
     public rating!: number;
