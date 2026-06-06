@@ -15,6 +15,7 @@ import { CommentsModule } from './modules/comments/comments.module';
             database: 'test-boilerplate',
             autoLoadEntities: true,
             synchronize: true,
+            logging: true,
         }),
         MongooseModule.forRoot('mongodb://localhost:27017/test-boilerplate'),
         PostsModule,
